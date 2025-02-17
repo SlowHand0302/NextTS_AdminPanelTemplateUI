@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ReactNode, Fragment } from 'react';
 
 interface BreadcrumnProps {
     homeHref?: string;
@@ -27,9 +27,8 @@ function Breadcrumb({ homeHref = '/', Separator = '/', HomeIcon = 'Home' }: Brea
                         {path}
                     </p>
                 ) : (
-                    <>
+                    <Fragment key={index}>
                         <Link
-                            key={index}
                             href={routeTo}
                             className="flex gap-2 items-center hover:text-slate-400"
                             aria-label={path}
@@ -37,7 +36,7 @@ function Breadcrumb({ homeHref = '/', Separator = '/', HomeIcon = 'Home' }: Brea
                             {path}
                         </Link>
                         {Separator}
-                    </>
+                    </Fragment>
                 );
             })}{' '}
         </div>

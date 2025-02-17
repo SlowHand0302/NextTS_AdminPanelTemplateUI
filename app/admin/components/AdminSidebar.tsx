@@ -1,15 +1,4 @@
-import {
-    Calendar,
-    Inbox,
-    Search,
-    Settings,
-    VideoIcon,
-    ImageIcon,
-    AudioLines,
-    StoreIcon,
-    LayoutDashboardIcon,
-} from 'lucide-react';
-import { LuPackage } from 'react-icons/lu';
+import { VideoIcon, ImageIcon, AudioLines, StoreIcon } from 'lucide-react';
 import {
     Sidebar,
     SidebarContent,
@@ -29,40 +18,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { useSidebar } from '@/components/ui/sidebar';
 import Logo from '@/components/Logo';
 import Account from '@/components/Account';
+import { FC, ReactNode } from 'react';
+import { ApplicationSidebarItems, StoragesSidebarItems } from '@/mockups/AdminSideBarItems';
+import Link from 'next/link';
 
-// Menu items.
-const items = [
-    {
-        title: 'Dashboard',
-        url: '/admin',
-        icon: LayoutDashboardIcon,
-    },
-    {
-        title: 'Products',
-        url: '/admin/products',
-        icon: LuPackage,
-    },
-    {
-        title: 'Inbox',
-        url: '#',
-        icon: Inbox,
-    },
-    {
-        title: 'Calendar',
-        url: '#',
-        icon: Calendar,
-    },
-    {
-        title: 'Search',
-        url: '#',
-        icon: Search,
-    },
-    {
-        title: 'Settings',
-        url: '#',
-        icon: Settings,
-    },
-];
+export type SideBarItem = {
+    title: string;
+    url: string;
+    icon: FC;
+};
 
 const mediaQuery = [
     {
@@ -97,12 +61,12 @@ function AdminSidebar() {
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent className="gap-0">
                 <SidebarGroup>
                     <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {items.map((item) => (
+                            {ApplicationSidebarItems.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
                                         <a href={item.url}>
@@ -113,8 +77,29 @@ function AdminSidebar() {
                                 </SidebarMenuItem>
                             ))}
                         </SidebarMenu>
-                        <AccrodionSidebarMenuItem />
                     </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup className="pt-0">
+                    <SidebarGroupLabel>File Storages</SidebarGroupLabel>
+                    <SidebarContent className="gap-0">
+                        <SidebarMenu>
+                            {StoragesSidebarItems.map((item) => (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild>
+                                        <Link href={item.url}>
+                                            <item.icon />
+                                            <span>{item.title}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                        <AccordionSidebarMenuItem
+                            title="Media Gallery"
+                            icon={<StoreIcon className="shrink-0 size-4" />}
+                            items={mediaQuery}
+                        />
+                    </SidebarContent>
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
@@ -128,7 +113,13 @@ function AdminSidebar() {
     );
 }
 
-function AccrodionSidebarMenuItem() {
+export interface AccordionSidebarMenuItemProps {
+    title: string;
+    icon?: ReactNode;
+    items: SideBarItem[];
+}
+
+function AccordionSidebarMenuItem({ title, icon, items }: AccordionSidebarMenuItemProps) {
     const sidebarTrigger = useSidebar();
 
     return (
@@ -137,14 +128,14 @@ function AccrodionSidebarMenuItem() {
                 <SidebarMenuItem>
                     <AccordionItem value="item-1" className="border-b-0 overflow-hidden">
                         <AccordionTrigger className="hover:no-underline p-2 overflow-hidden">
-                            <span className="flex gap-2 group-data-[collapsible=icon]:!size-4 group-data-[collapsible=icon]:!mr-1">
-                                <StoreIcon className="flex-shrink-0 size-4" />
-                                <p className="overflow-y-hidden">Media Gallery</p>
+                            <span className="flex gap-2 group-data-[collapsible=icon]:size-4! group-data-[collapsible=icon]:mr-1!">
+                                {icon}
+                                <p className="overflow-y-hidden">{title}</p>
                             </span>
                         </AccordionTrigger>
                         <AccordionContent className="pb-0">
                             <SidebarMenuSub>
-                                {mediaQuery.map((item, index) => {
+                                {items.map((item, index) => {
                                     return (
                                         <SidebarMenuSubItem key={index}>
                                             <SidebarMenuSubButton asChild>

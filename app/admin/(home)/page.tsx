@@ -12,6 +12,7 @@ import {
     LuDollarSign,
 } from 'react-icons/lu';
 import { TbMoodPin, TbUsers, TbCreditCardFilled } from 'react-icons/tb';
+import { ChartDemo } from './ChartDemo';
 
 const page = () => {
     return (
@@ -23,7 +24,7 @@ const page = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl flex items-center gap-3">
-                            <h1 className='font-bold'>000000</h1>
+                            <h1 className="font-bold">000000</h1>
                             <div className="text-[14px] h-5 w-fit px-1 py-1.5 text-green-500 font-semibold flex justify-center items-center bg-green-100 rounded-md">
                                 <LuArrowUp />
                                 <p>0.0%</p>
@@ -45,7 +46,7 @@ const page = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl flex items-center gap-3">
-                            <h1 className='font-bold'>000000</h1>
+                            <h1 className="font-bold">000000</h1>
                             <div className="text-[14px] h-5 w-fit px-1 py-1.5 text-red-500 font-semibold flex justify-center items-center bg-red-100 rounded-md">
                                 <LuArrowDown />
                                 <p>0.0%</p>
@@ -66,7 +67,7 @@ const page = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl flex items-center gap-3">
-                            <h1 className='font-bold'>000000</h1>
+                            <h1 className="font-bold">000000</h1>
                             <div className="text-[14px] h-5 w-fit px-1 py-1.5 text-yellow-500 font-semibold flex justify-center items-center bg-yellow-100 rounded-md">
                                 <LuArrowRight />
                                 <p>0.0%</p>
@@ -88,7 +89,7 @@ const page = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl flex items-center gap-3">
-                            <h1 className='font-bold'>000000</h1>
+                            <h1 className="font-bold">000000</h1>
                             <div className="text-[14px] h-5 w-fit px-1 py-1.5 text-green-500 font-semibold flex justify-center items-center bg-green-100 rounded-md">
                                 <LuArrowUp />
                                 <p>0.0%</p>
@@ -105,8 +106,10 @@ const page = () => {
                     <LuDollarSign size={32} className="absolute top-4 right-5" />
                 </Card>
             </section>
-
-            <DataTableDemo />
+            <section className="flex gap-2">
+                <ChartDemo />
+                <DataTableDemo />
+            </section>
         </main>
     );
 };
